@@ -21,20 +21,22 @@ $(document).ready(function () {
             alert('Błąd\n' + xhr + status + err)
         });
 
-        list.on('click', 'li.book-title', function () {
-            let id = $(this).attr('id');
-            let desc = $(this).children(0);
-            desc.toggle();
-            $.ajax({
-                url: url + id,
-                data: {},
-                method: 'GET',
-                dataType: 'json',
-            }).done(function (result) {
-                desc.html(result.id + result.author + result.isbn + result.publisher);
-            });
-        });
+
     };
+
+    list.on('click', 'li.book-title', function () {
+        let id = $(this).attr('id');
+        let desc = $(this).children(0);
+        desc.toggle();
+        $.ajax({
+            url: url + id,
+            data: {},
+            method: 'GET',
+            dataType: 'json',
+        }).done(function (result) {
+            desc.html(result.id + result.author + result.isbn + result.publisher);
+        });
+    });
 
     list.on('click', 'a.delete-book', function () {
         let id = $(this).prev().attr('id');
@@ -44,7 +46,7 @@ $(document).ready(function () {
             method: 'DELETE',
             data: {},
             dataType: 'json',
-        }).done(function (result) {
+        }).done(function () {
             alert('Usunięto!');
             loadAll();
         })
