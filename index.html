@@ -5,12 +5,30 @@
     <title>Books Info</title>
 </head>
 <body>
-    <div id="form">
-        <form>
+    <div id="form-div">
+        <form id="new-book">
+            <label>Autor:
+                <input type="text" id="author" name="author">
+            </label>
+            <label>Tytuł:
+                <input type="text" id="title" name="title">
+            </label>
+            <label>ISBN:
+                <input type="text" id="isbn" name="isbn">
+            </label>
+            <label>Wydawca:
+                <input type="text" id="publisher" name="publisher">
+            </label>
+            <label>Gatunek:
+                <input type="number" id="genre" name="genre" min="0" step="1">
+            </label>
+            <input type="submit" value="Zapisz">
         </form>
     </div>
     <div id="books-list">
+        <ul>
 
+        </ul>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="js/script.js"></script>
