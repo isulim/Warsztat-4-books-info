@@ -62,10 +62,6 @@ $(document).ready(function () {
             genre: $(this).find('#genre').val(),
         };
 
-        console.log($(this).find('#author'));
-        console.log(data);
-
-
         $.ajax({
             url: url,
             method: 'POST',
