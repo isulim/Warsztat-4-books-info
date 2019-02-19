@@ -2,52 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<header class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <h3 class="navbar-brand">Book-Info</h3>
+</header>
     <div class="row container-fluid">
-        <div class="container-fluid col">
-            <h4>Lista książek</h4>
-                <ol id='books-list' class="list-group"> 
-                    
-                </ol>
+        <div class="card jumbotron continer-fluid col">
+            <h4 class="card-header">Lista książek</h4>
+            <ol class="card-body" id='books-list' class="list-group">
+
+            </ol>
         </div>
         
-        <div class="container-fluid col" id="form-div">
+        <div class="card jumbotron mb-3 form group container-fluid col" id="form-div">
             <form id="new-book">
-            <h4>Dodaj nową książkę</h4>
-            <div class="row">
-                <label>Autor:
-                    <input type="text" id="author" name="author">
-                </label>
-            </div>
-            <div class="row">
-                <label>Tytuł:
-                    <input type="text" id="title" name="title">
-                </label>
-            </div>
-            <div class="row">
-                <label>ISBN:
-                    <input type="text" id="isbn" name="isbn">
-                </label>
-            </div>
-            <div class="row">
-                <label>Wydawca:
-                    <input type="text" id="publisher" name="publisher">
-                </label>
-            </div>
-            <div class="row">
-                <label>Gatunek:
-                    <input type="number" id="genre" name="genre" min="0" step="1">
-                </label>
-            </div>
-            <div class="row">
-                <input class="btn btn-success" type="submit" value="Zapisz">
+            <h4 class="card-header">Dodaj nową książkę</h4>
+            <div class="card-body">
+                <div class="col form-group">
+                    <label for="author" class="form-control-label">Autor:</label>
+                    <input type="text" class="form-control" id="author" name="author">
+                </div>
+                <div class="col form-group">
+                    <label for="title" class="form-control-label">Tytuł:</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
+                <div class="col form-group">
+                    <label for="isbn" class="form-control-label">ISBN:</label>
+                    <input type="text" class="form-control" id="isbn" name="isbn">
+                </div>
+                <div class="col form-group">
+                    <label for="publisher" class="form-control-label">Wydawca:</label>
+                    <input type="text" class="form-control" id="publisher" name="publisher">
+                </div>
+                <div class="col form-group">
+                    <label for="genre" class="form-control-label">Gatunek:</label>
+                    <input type="number" class="form-control" id="genre" name="genre" min="1" max="7" step="1">
+                </div>
+                <div class="col form-group">
+                    <input class="btn btn-success" type="submit" value="Zapisz">
+                </div>
             </div>
             </form>
         </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+        </div>
         
+    </div>
+    <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+        <h5 class="navbar">&copy; isulim, 2019</h5>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="js/script.js"></script>
