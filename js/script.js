@@ -4,6 +4,18 @@ $(document).ready(function () {
 
     var list = $('#books-list');
 
+    var ajaxCall = function(url, method, data, dataType='json', doneFunction) {
+        $.ajax({
+            url: url,
+            method: method,
+            data: data,
+            dataType: dataType,
+        }).done(doneFunction).fail(function (xhr, status, err){
+            alert('Błąd\n' + xhr + status + err)
+        })
+    }
+
+
     var loadAll = function() {
         list.html('');
         $.ajax({
@@ -83,16 +95,14 @@ $(document).ready(function () {
             publisher: $(this).find('#publisher').val(),
             genre: $(this).find('#genre').val(),
         };
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: data,
-            dataType: 'json',
-        }).done(function () {
-            alert('DODANO!');
+        
+        let done = function() {
+            alert('Dodano nową książkę do bazy.')
             loadAll();
-        })
+        }
+
+        ajaxCall(url, 'POST', data, 'json', done)
+
     });
 
     loadAll();
