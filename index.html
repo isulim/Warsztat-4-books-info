@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css"
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="row container-fluid">
@@ -17,22 +17,34 @@
         <div class="container-fluid col" id="form-div">
             <form id="new-book">
             <h4>Dodaj nową książkę</h4>
+            <div class="row">
                 <label>Autor:
                     <input type="text" id="author" name="author">
-                </label><br>
+                </label>
+            </div>
+            <div class="row">
                 <label>Tytuł:
                     <input type="text" id="title" name="title">
-                </label><br>
+                </label>
+            </div>
+            <div class="row">
                 <label>ISBN:
                     <input type="text" id="isbn" name="isbn">
-                </label><br>
+                </label>
+            </div>
+            <div class="row">
                 <label>Wydawca:
                     <input type="text" id="publisher" name="publisher">
-                </label><br>
+                </label>
+            </div>
+            <div class="row">
                 <label>Gatunek:
                     <input type="number" id="genre" name="genre" min="0" step="1">
-                </label><br>
+                </label>
+            </div>
+            <div class="row">
                 <input class="btn btn-success" type="submit" value="Zapisz">
+            </div>
             </form>
         </div>
         

@@ -4,86 +4,76 @@ $(document).ready(function () {
 
     var list = $('#books-list');
 
-    var ajaxCall = function(url, method, data, dataType='json', doneFunction) {
+    var ajaxCall = function(ajaxUrl, ajaxMethod, ajaxData, ajaxDataType, ajaxDone) {
         $.ajax({
-            url: url,
-            method: method,
-            data: data,
-            dataType: dataType,
-        }).done(doneFunction).fail(function (xhr, status, err){
+            url: ajaxUrl,
+            method: ajaxMethod,
+            data: ajaxData,
+            dataType: ajaxDataType,
+        }).done(ajaxDone).fail(function (xhr, status, err){
             alert('Błąd\n' + xhr + status + err)
         })
+    }
+
+    
+    var populateList = function(result) {
+        
+        for (let i = 0; i < result.length; i++) {
+            list.append('<li class="list-group-item " book-id="' + result[i].id + '">' + 
+                            '<div class="row">' + 
+                                '<div class="col title">' + 
+                                    result[i].title + 
+                                '</div>' +         
+                                '<div class="col">' + 
+                                    '<button class="btn btn-warning delete-book" delete-id="' + result[i].id + '">Usuń wpis</button>' + 
+                                '</div>' + 
+                            '</div>' + 
+                            '<div class="col" style="display: none;" id="desc-' + result[i].id + '"></div>' +
+                        '</li>');
+        } 
+
+        $('ol li').one('click', function (event) {
+            let id = $(this).attr('book-id');
+            let desc = $('#desc-' + id);
+
+            let bookDetails = function(result){
+                desc.html('<div class="container"><div class="row">Autor: ' + result.author + '</div></div>' +
+                            '<div class="container"><div class="row">ISBN: ' + result.isbn + '</div></div>' +
+                            '<div class="container"><div class="row">Wydawca: ' + result.publisher + '</div></div>');            
+            }
+            ajaxCall((url + id),'GET', {}, 'json', bookDetails);
+           
+            });
+
+
+            $('.title').on('click', function (){
+                let id = $(this).parent().parent().attr('book-id');
+                let desc = $('#desc-' + id);
+                desc.toggle();
+            })
+
+            $('.delete-book').off();
+        
+            $('.delete-book').on('click', function () {
+                let id = $(this).attr('delete-id');
+                let deleteDone = function() {
+                    loadAll();
+                }
+                if (confirm('Czy na pewno usunąć wpis?')){
+                    ajaxCall((url + id), 'DELETE', {}, 'json', deleteDone)
+                }
+                
+        
+            });
     }
 
 
     var loadAll = function() {
         list.html('');
-        $.ajax({
-            url: url,
-            data: {},
-            method: "GET",
-            dataType: "json",
-        }).done(function (result) {
-            for (let i = 0; i < result.length; i++) {
-                list.append('<li class="list-group-item row" book-id="' + result[i].id + '">' + result[i].title +
-                                '' + 
-                                    
-                                    '<div class="col-">'+ 
-                                        '<button class="btn btn-warning delete-book" delete-id="' + result[i].id + '">Usuń wpis</button>' + 
-                                    '</div>' + 
-                                    '' + 
-                                    '<div class="col" style="display: none;" id="desc-' + result[i].id + '"></div>' +
-                                ''+
-                            '</li>');
-            } 
-
-            var lis = $('ol li');
-            lis.one('click', function (event) {
-                let id = $(this).attr('book-id');
-                let desc = $('#desc-' + id);
-                $.ajax({
-                    url: url + id,
-                    data: {},
-                    method: 'GET',
-                    dataType: 'json',
-                }).done(function (result) {
-                    desc.html('<div class="container"><div class="row">Autor: ' + result.author + '</div></div>' +
-                              '<div class="container"><div class="row">ISBN: ' + result.isbn + '</div></div>' +
-                              '<div class="container"><div class="row">Wydawca: ' + result.publisher + '</div></div>'
-                              );
-                });
-                
-           
-            });
-
-
-        }).fail(function (xhr, status, err) {
-            alert('Błąd\n' + xhr + status + err)
-        });
-
+        $('#new-book').trigger("reset");
+        ajaxCall(url, 'GET', {}, 'json', populateList);
 
     };
-
-
-    list.on('click', '.list-group-item', function (){
-        let id = $(this).attr('book-id');
-        let desc = $('#desc-' + id);
-        desc.toggle();
-    })
-
-    list.on('click', '.delete-book', function () {
-        let id = $(this).attr('delete-id');
-        $.ajax({
-            url: url + id,
-            method: 'DELETE',
-            data: {},
-            dataType: 'json',
-        }).done(function () {
-            alert('Usunięto!');
-            loadAll();
-        })
-    });
-
 
     $('#new-book').on('submit', function (event) {
         event.preventDefault();
@@ -106,5 +96,6 @@ $(document).ready(function () {
     });
 
     loadAll();
+    
 
 });
