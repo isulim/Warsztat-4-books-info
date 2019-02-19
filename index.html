@@ -2,33 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Books Info</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css"
 </head>
 <body>
-    <div id="form-div">
-        <form id="new-book">
-            <label>Autor:
-                <input type="text" id="author" name="author">
-            </label>
-            <label>Tytuł:
-                <input type="text" id="title" name="title">
-            </label>
-            <label>ISBN:
-                <input type="text" id="isbn" name="isbn">
-            </label>
-            <label>Wydawca:
-                <input type="text" id="publisher" name="publisher">
-            </label>
-            <label>Gatunek:
-                <input type="number" id="genre" name="genre" min="0" step="1">
-            </label>
-            <input type="submit" value="Zapisz">
-        </form>
-    </div>
-    <div id="books-list">
-        <ul>
-
-        </ul>
+    <div class="row container-fluid">
+        <div class="container-fluid col">
+            <h4>Lista książek</h4>
+                <ol id='books-list' class="list-group"> 
+                    
+                </ol>
+        </div>
+        
+        <div class="container-fluid col" id="form-div">
+            <form id="new-book">
+            <h4>Dodaj nową książkę</h4>
+                <label>Autor:
+                    <input type="text" id="author" name="author">
+                </label><br>
+                <label>Tytuł:
+                    <input type="text" id="title" name="title">
+                </label><br>
+                <label>ISBN:
+                    <input type="text" id="isbn" name="isbn">
+                </label><br>
+                <label>Wydawca:
+                    <input type="text" id="publisher" name="publisher">
+                </label><br>
+                <label>Gatunek:
+                    <input type="number" id="genre" name="genre" min="0" step="1">
+                </label><br>
+                <input class="btn btn-success" type="submit" value="Zapisz">
+            </form>
+        </div>
+        
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="js/script.js"></script>

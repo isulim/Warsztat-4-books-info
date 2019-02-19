@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     var url = 'http://127.0.0.1:8000/book/';
 
-    var list = $('#books-list ul');
+    var list = $('#books-list');
 
     var loadAll = function() {
         list.html('');
@@ -13,10 +13,38 @@ $(document).ready(function () {
             dataType: "json",
         }).done(function (result) {
             for (let i = 0; i < result.length; i++) {
+                list.append('<li class="list-group-item row" book-id="' + result[i].id + '">' + result[i].title +
+                                '' + 
+                                    
+                                    '<div class="col-">'+ 
+                                        '<button class="btn btn-warning delete-book" delete-id="' + result[i].id + '">Usuń wpis</button>' + 
+                                    '</div>' + 
+                                    '' + 
+                                    '<div class="col" style="display: none;" id="desc-' + result[i].id + '"></div>' +
+                                ''+
+                            '</li>');
+            } 
 
-                list.append('<li class="book-title" id="' + result[i].id + '">' + result[i].title +
-                    '<div></div></li><a href="#" class="delete-book">USUŃ</a>');
-            }
+            var lis = $('ol li');
+            lis.one('click', function (event) {
+                let id = $(this).attr('book-id');
+                let desc = $('#desc-' + id);
+                $.ajax({
+                    url: url + id,
+                    data: {},
+                    method: 'GET',
+                    dataType: 'json',
+                }).done(function (result) {
+                    desc.html('<div class="container"><div class="row">Autor: ' + result.author + '</div></div>' +
+                              '<div class="container"><div class="row">ISBN: ' + result.isbn + '</div></div>' +
+                              '<div class="container"><div class="row">Wydawca: ' + result.publisher + '</div></div>'
+                              );
+                });
+                
+           
+            });
+
+
         }).fail(function (xhr, status, err) {
             alert('Błąd\n' + xhr + status + err)
         });
@@ -24,23 +52,15 @@ $(document).ready(function () {
 
     };
 
-    list.on('click', 'li.book-title', function () {
-        let id = $(this).attr('id');
-        let desc = $(this).children(0);
+
+    list.on('click', '.list-group-item', function (){
+        let id = $(this).attr('book-id');
+        let desc = $('#desc-' + id);
         desc.toggle();
-        $.ajax({
-            url: url + id,
-            data: {},
-            method: 'GET',
-            dataType: 'json',
-        }).done(function (result) {
-            desc.html(result.id + result.author + result.isbn + result.publisher);
-        });
-    });
+    })
 
-    list.on('click', 'a.delete-book', function () {
-        let id = $(this).prev().attr('id');
-
+    list.on('click', '.delete-book', function () {
+        let id = $(this).attr('delete-id');
         $.ajax({
             url: url + id,
             method: 'DELETE',
